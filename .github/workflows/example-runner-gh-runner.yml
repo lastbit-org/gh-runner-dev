@@ -1,7 +1,7 @@
 # Exemplo: workflow que usa os runners self-hosted no GCP
 # Os runners têm as labels: gcp, self-hosted, hotel-dev
 
-name: Example - Self-hosted Runner
+name: Example - Github Runner Self-hosted
 
 on:
   push:

@@ -11,7 +11,8 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, gcp, hotel-dev]
+    #runs-on: [self-hosted, gcp, hotel-dev]
+    runs-on: ubuntu-latest # Usa runners com essas labels
 
     steps:
       - name: Checkout

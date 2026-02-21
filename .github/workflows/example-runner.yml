@@ -10,7 +10,8 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, gcp] # Usa runners com essas labels
+    #runs-on: [self-hosted, gcp] # Usa runners com essas labels
+    runs-on: ubuntu-latest # Usa runners com essas labels
 
     steps:
       - name: Checkout
