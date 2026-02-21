@@ -1,0 +1,27 @@
+# Exemplo: workflow que usa os runners self-hosted no GCP
+# Os runners têm as labels: gcp, self-hosted, hotel-dev
+
+name: Example - Self-hosted Runner
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Permite rodar manualmente
+
+jobs:
+  build:
+    runs-on: [self-hosted, gcp]  # Usa runners com essas labels
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Mostrar info do runner
+        run: |
+          echo "Runner: $(hostname)"
+          echo "OS: $(uname -a)"
+          echo "PWD: $(pwd)"
+          whoami
+
+      - name: Hello
+        run: echo "Workflow executado no runner self-hosted!"

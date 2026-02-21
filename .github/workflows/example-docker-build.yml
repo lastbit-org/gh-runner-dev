@@ -1,0 +1,32 @@
+# Exemplo: build Docker e push para Artifact Registry
+# Pré-requisito: adicione o secret GCP_SA_KEY (JSON da SA sa-github-runners) no GitHub
+# Settings > Secrets > Actions > New repository secret
+
+name: Build and Push Docker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [self-hosted, gcp, hotel-dev]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Auth no GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configurar Docker para Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build e Push
+        run: |
+          # Ajuste o path e tag conforme seu projeto
+          docker build -t us-central1-docker.pkg.dev/prj-hotel-dev-11dbf516/apps/my-api:${{ github.sha }} .
+          docker push us-central1-docker.pkg.dev/prj-hotel-dev-11dbf516/apps/my-api:${{ github.sha }}
